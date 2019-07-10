@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <headers class="header"></headers>
+    <headers class="header"/>
     <div class="bottom">
-      <slider></slider>
-      <mains></mains>
+      <slider/>
+      <mains/>
     </div>
   </div>
 </template>

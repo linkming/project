@@ -8,11 +8,13 @@ export default new Router({
     {
       path: '/',
       name: 'dashboard',
+      title: '首页',
       component: () => import('@/views/dashboard.vue')
     },
     {
       path: '/config',
       name: 'systemSetting',
+      title: '系统设置',
       component: () => import('@/views/config/index.vue')
     }
   ]

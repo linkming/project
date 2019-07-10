@@ -1,7 +1,7 @@
 {
-  "name": "demos",
+  "name": "test-project",
   "version": "1.0.0",
-  "description": "first blood",
+  "description": "demos",
   "author": "孙旭明 <sunxuming@dataexa.com>",
   "private": true,
   "scripts": {
@@ -11,14 +11,10 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "array-includes": "^3.0.3",
-    "codemirror": "^5.48.0",
     "element-ui": "^2.10.1",
-    "has": "^1.0.3",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",
     "vue": "^2.5.2",
-    "vue-codemirror": "^4.0.6",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

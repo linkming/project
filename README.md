@@ -1,6 +1,6 @@
-# demos
+# test-project
 
-> first blood
+> demos
 
 ## Build Setup
 

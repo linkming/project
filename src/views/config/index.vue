@@ -1,7 +1,7 @@
 <template>
-    <div>
-    <codemirror  ref="myCm"  v-model="json.type"  :options="cmOptions"   @changes="changes" class="code" ></codemirror>
-        <!-- <codemirror ref="myCode" :value="modes" v-model="msg" :option="modes" /> -->
+  <div>
+    <codemirror ref="myCm" v-model="json.type" :options="cmOptions" class="code" @changes="changes" />
+    <!-- <codemirror ref="myCode" :value="modes" v-model="msg" :option="modes" /> -->
   </div>
 </template>
 <script>
@@ -20,7 +20,7 @@ export default {
   components: {
     codemirror
   },
-  data () {
+  data() {
     return {
       json: {},
       item: {
@@ -70,11 +70,11 @@ export default {
       }]
     }
   },
-  created () {
+  created() {
     this.json = json
   },
   methods: {
-    changes () {
+    changes() {
 
     }
   }
