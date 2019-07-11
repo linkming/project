@@ -22,6 +22,12 @@ export default new Router({
           name: 'echarts',
           title: '百度图表',
           component: () => import('@/views/charts/echarts.vue')
+        },
+        {
+          path: '/d3',
+          name: 'd3',
+          title: 'D3',
+          component: () => import('@/views/charts/d3.vue')
         }
       ]
     },

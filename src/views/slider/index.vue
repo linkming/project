@@ -1,6 +1,7 @@
 <template>
   <div class="left">
     <el-menu
+      :router="true"
       default-active="2"
       class="el-menu-vertical-demo"
       background-color="#545c64"
@@ -8,7 +9,7 @@
       active-text-color="#ffd04b"
       @open="handleOpen"
       @close="handleClose">
-      <el-menu-item v-for="(item,index) in routes" :key="index">
+      <el-submenu v-for="(item,index) in routes" :key="index" :index="item.path">
         <i :class="item.icon"/>
         <template v-if="item.children">
           <el-menu-item v-for="(child,keys) in item.children" :key="keys" >
@@ -17,8 +18,9 @@
           </el-menu-item>
         </template>
         <span slot="title">{{ item.title }}</span>
-      </el-menu-item>
+      </el-submenu>
     </el-menu>
+
     <!-- <ul>
       <li v-for="(item,index) in routes" :key="index">
         <router-link :to="{'name':item.name}">
