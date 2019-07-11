@@ -1,18 +1,31 @@
 <template>
-
   <div class="left">
-    <ul>
+    <el-menu
+      default-active="2"
+      class="el-menu-vertical-demo"
+      background-color="#545c64"
+      text-color="#fff"
+      active-text-color="#ffd04b"
+      @open="handleOpen"
+      @close="handleClose">
+      <el-menu-item v-for="(item,index) in routes" :key="index">
+        <i :class="item.icon"/>
+        <template v-if="item.children">
+          <el-menu-item v-for="(child,keys) in item.children" :key="keys" >
+            <i :class="item.icon"/>
+            <span slot="title">{{ child.title }}</span>
+          </el-menu-item>
+        </template>
+        <span slot="title">{{ item.title }}</span>
+      </el-menu-item>
+    </el-menu>
+    <!-- <ul>
       <li v-for="(item,index) in routes" :key="index">
         <router-link :to="{'name':item.name}">
           {{ item.title }}
         </router-link>
       </li>
-      <!-- <li><router-link :to="{name: 'systemSetting'}">设置</router-link></li>
-      <li><router-link :to="{name: 'dashboard'}">主页</router-link></li>
-      <li>音乐</li>
-      <li>表格</li>
-      <li>图表</li> -->
-    </ul>
+    </ul> -->
   </div>
 </template>
 <script>
@@ -25,13 +38,21 @@ export default {
   },
   mounted() {
     console.log(this.routes)
+  },
+  methods: {
+    handleOpen(key, keyPath) {
+      console.log(key, keyPath)
+    },
+    handleClose(key, keyPath) {
+      console.log(key, keyPath)
+    }
   }
 }
 </script>
 <style lang="scss">
 .left{
-  width: 120px;
-  background: #996;
+  min-width: 120px;
+  // background: #996;
 }
 
 </style>
