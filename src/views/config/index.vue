@@ -4,7 +4,9 @@
     <!-- <codemirror ref="myCode" :value="modes" v-model="msg" :option="modes" /> -->
   </div>
 </template>
+<script src="@/utils/tiff.min.js"></script>
 <script>
+// import '@/utils/tiff.min.js'
 import json from '@/data/json.json'
 import { codemirror } from 'vue-codemirror'
 

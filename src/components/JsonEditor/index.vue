@@ -32,6 +32,7 @@ export default {
     }
   },
   mounted() {
+    console.log(CodeMirror)
     this.jsonEditor = CodeMirror.fromTextArea(this.$refs.textarea, {
       lineNumbers: true,
       mode: 'application/json',

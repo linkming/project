@@ -6,12 +6,35 @@ const path = require('path')
 
 module.exports = {
   dev: {
-
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
-
+    proxyTable: {
+      '/': {
+        target: `https://api.imjad.cn`,
+        secure: true, // 如果是https接口，需要配置这个参数为true
+        ws: false,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/': ''
+        }
+      }
+      // '/api': {
+      //   target: 'https://api.imjad.cn',  //目标接口域名
+      //   secure: true,      // 如果是https接口，需要配置这个参数为true
+      //   changeOrigin: true,  //是否跨域
+      //   headers: {
+      //     Referer: 'https://api.imjad.cn'
+      //   },
+      //   pathRewrite: {
+      //     '^/api': ''   //重写接口
+      //   },
+      //   onProxyReq: function (proxyReq, req, res) {
+      //     //实在不知道代理后的路径，可以在这里打印出出来看看
+      //     console.log("原路径：" + req.originalUrl, "代理路径：" + req.path)
+      //   }
+      // },
+    },
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined

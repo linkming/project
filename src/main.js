@@ -9,6 +9,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 import { codemirror } from 'vue-codemirror'
 import 'codemirror/lib/codemirror.css'
 
+import api from '@/api'
+Vue.prototype.$api = api
 Vue.config.productionTip = false
 Vue.use(element)
 Vue.use(codemirror)
@@ -20,3 +22,8 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+// router.beforeEach((to, from, next) => {
+//   console.log(to)
+//   next()
+//   // ...
+// })

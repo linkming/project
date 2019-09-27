@@ -1,5 +1,80 @@
 <template>
-  <div>
-    用来做图的
+  <div v-move class="right-plan">
+    <transition>
+      <router-view/>
+    </transition>
+    <el-button @click="fn">点击延迟</el-button>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'RightPlan',
+  directives: {
+    move: {
+      inserted(el, binding, vnode) {
+        document.onmouseover = vnode.context.debounce(vnode.context.printWidth, 1000)
+      }
+      // bind(el, binding, vnode) {
+      //   document.onmouseover = function() {
+      //     console.log(vnode.context.debounce)
+      //   }
+      // }
+    }
+  },
+  data() {
+    return {
+      list: [1, 2, 3]
+    }
+  },
+  mounted() {
+
+  },
+  methods: {
+    fn() {
+      // eslint-disable-next-line no-unused-vars
+      var timer
+      timer = setTimeout(() => {
+        alert('执行了3秒')
+      }, 3000)
+    },
+    debounce(operate, delay) {
+      let time = null
+      let timer = null
+      let newTime = null
+      function task() {
+        newTime = +new Date()
+        // console.log(newTime)
+        if (newTime - time < delay) {
+          timer = setTimeout(task, delay)
+        } else {
+          operate()
+          timer = null
+        }
+        time = newTime
+      }
+      return function() {
+      // 更新时间戳
+        time = +new Date()
+        if (!timer) {
+          timer = setTimeout(task, delay)
+        }
+      }
+    },
+    printWidth() {
+      console.log(this.list)
+      console.log(new Date())
+    }
+  }
+
+}
+</script>
+
+<style lang="scss" scoped>
+  .right-plan{
+    width: 600px;
+    height: 600px;
+    border: 1px solid #000;
+    padding: 12px;
+  }
+</style>
