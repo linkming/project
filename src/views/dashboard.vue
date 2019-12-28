@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-input v-model="id" @change="getSongs"/>
+    <el-input v-model="id" placeholder="请输入歌曲ID" @change="getSongs"/>
     <el-table :data="songList" style="width: 100%">
       <el-table-column
         prop="name"
@@ -38,27 +38,38 @@
     <ul>
       <li v-if="commentsTotal===1">暂无评论</li>
       <li v-for="(item,index) in commentsList" v-else :key="index">
-        <img :src="item.user.avatarUrl" class="comments-portrait">
-        <span class="username">{{ item.user.nickname }}</span>:{{ item.content }}
-        <el-badge :value="item.likedCount" class="item">
-          <el-button size="small">赞</el-button>
-        </el-badge>
+        <el-row>
+          <el-col :span="1">
+            <img :src="item.user.avatarUrl" class="comments-portrait">
+          </el-col>
+          <el-col :span="23">
+            <el-row>
+              <el-col :span="4">
+                <span class="username">{{ item.user.nickname }}:</span>
+              </el-col>
+              <el-col :span="20">
+                <pre>{{ item.content }}</pre>
+              </el-col>
+            </el-row>
+          </el-col>
+        </el-row>
       </li>
     </ul>
+    <div class="block" style="transition-timing-function: cubic-bezier(0, 0, 0.58, 1);" />
   </div>
 </template>
 <script>
 import json from '@/data/json.json'
+import IndexedDB from '@/utils/indexedDB'
 // import jsonEditor from '@/components/JsonEditor'
 export default {
   beforeRouteEnter(to, from, next) {
     next()
   },
-  // components: { jsonEditor },
   data() {
     return {
       id: '',
-      str: '',
+      request: null,
       songList: [],
       privileges: [],
       commentsTotal: 0,
@@ -70,13 +81,11 @@ export default {
 
   },
   mounted() {
-    this.storge()
-    this.str = this.hexCharCodeToStr('\uD83D\uDCA9')
-    this.str = escape(0xD83D)
+    this.request = new IndexedDB('db-name')
+    // this.storge()
   },
   methods: {
     getSongs() {
-      console.log(arguments)
       this.music(this.id)
     },
     music(id) {
@@ -84,44 +93,41 @@ export default {
         if (res.code === 200) {
           this.songList = res.songs
           this.privileges = res.privileges
+          // 歌曲评论
           this.$api.comments(id).then((res) => {
             if (res.code === 200) {
-              console.log(res)
+              // console.log('res', res)
               this.commentsList = res.comments
               this.commentsTotal = res.total
+              this.storge(res.comments)
             } else {
               this.$notify.error('错误')
             }
           }).catch(err => { console.log(err) })
         }
       })
-      // var xhr = new XMLHttpRequest()
-      // xhr.open('get', 'https://api.imjad.cn/cloudmusic/?type=detail&id=32785674', true)
-      // // xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded')
-      // xhr.send()
-      // xhr.onreadystatechange = (res) => {
-      //   if (xhr.readyState === 4) {
-      //     if (xhr.status === 200) {
-      //       var data = xhr.responseText
-      //       console.log(data)
-      //       return data
-      //     }
-      //   }
-      // }
     },
-    storge() {
+    storge(commentsList) {
+      console.log(commentsList)
       var request = window.indexedDB.open('linkming', 1.1)
       request.onupgradeneeded = function(event) {
         var db = event.target.result
+        console.log(event)
         var objectStore = db.createObjectStore(
-          'person',
+          'songsStores',
           { autoIncrement: true }
         )
+        for (let i = 0; i < commentsList.length; i++) {
+          console.log(commentsList[i])
+        }
         objectStore.createIndex('name', 'name', { unique: false })
+        // console.log
         objectStore.add({ id: 1, name: '张三', age: 24, email: 'zhangsan@example.com' })
         objectStore.createIndex('email', 'email', { unique: true })
         console.log(objectStore.get(1))
       }
+      console.log(request)
+
       // function add() {
       //   console.log(arguments)
       //   request.transaction(['person'], 'readwrite')
@@ -152,34 +158,23 @@ export default {
       // }
       // add()
       // console.log(request.onupgradeneeded)
-    },
-    // add() {},
-    hexCharCodeToStr(hexCharCodeStr) {
-      var trimedStr = hexCharCodeStr.trim()
-      var rawStr = trimedStr.substr(0, 2).toLowerCase() === '0x' ? trimedStr.substr(2) : trimedStr
-      var len = rawStr.length
-      if (len % 2 !== 0) {
-        alert('Illegal Format ASCII Code!')
-        return ''
-      }
-      var curCharCode
-      var resultStr = []
-      for (var i = 0; i < len; i = i + 2) {
-        curCharCode = parseInt(rawStr.substr(i, 2), 16) // ASCII Code Value
-        resultStr.push(String.fromCharCode(curCharCode))
-      }
-      return resultStr.join('')
     }
   }
-
 }
 </script>
-<style >
+<style lang="scss">
 .comments-portrait{
-  width:44px;
+  width:64px;
 }
 .username{
   color: deepskyblue;
+  font-size: 12px;
+}
+ul{
+  margin: 24px;
+  li{
+    list-style-type: none;
+  }
 }
 </style>
 

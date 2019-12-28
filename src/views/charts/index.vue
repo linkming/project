@@ -3,7 +3,7 @@
     <transition>
       <router-view/>
     </transition>
-    <el-button @click="fn">点击延迟</el-button>
+    <!-- <el-button @click="fn">点击延迟</el-button> -->
   </div>
 </template>
 
@@ -12,14 +12,9 @@ export default {
   name: 'RightPlan',
   directives: {
     move: {
-      inserted(el, binding, vnode) {
+      updated(el, binding, vnode) {
         document.onmouseover = vnode.context.debounce(vnode.context.printWidth, 1000)
       }
-      // bind(el, binding, vnode) {
-      //   document.onmouseover = function() {
-      //     console.log(vnode.context.debounce)
-      //   }
-      // }
     }
   },
   data() {
@@ -72,9 +67,8 @@ export default {
 
 <style lang="scss" scoped>
   .right-plan{
-    width: 600px;
-    height: 600px;
-    border: 1px solid #000;
+    width: 100%;
+    height: 100%;
     padding: 12px;
   }
 </style>

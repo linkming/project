@@ -113,7 +113,7 @@ export default {
     scroll: {
       inserted(el, vnode) {
         window.scroll = function(el) {
-          console.log(arguments)
+          // console.log(arguments)
         }
       }
     }
