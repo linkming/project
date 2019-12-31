@@ -70,6 +70,13 @@ export default new Router({
       component: () => import('@/views/form')
     },
     {
+      path: '/annotation',
+      icon: 'el-icon-s-finance',
+      name: 'annotation',
+      title: '标注管理',
+      component: () => import('@/views/annotation')
+    },
+    {
       path: '/config',
       icon: 'el-icon-menu',
       name: 'systemSetting',

@@ -2,17 +2,17 @@
   <div class="menu-item">
     <el-submenu v-if="isHaveChild(item)" :index="item.path">
       <template slot="title">
-        <i class="el-icon-location"/>
+        <i :class="item.icon"/>
         <span slot="title">{{ item.title }}</span>
       </template>
       <el-menu-item v-for="value in item.children" :key="value.path" @click="linkURL(item.path+'/'+value.path)">
-        <i class="el-icon-document"/>
+        <i :class="item.icon"/>
         <span slot="title">{{ value.title }}</span>
         <!-- <Menu-itme v-if="isHaveChild(value)" :item="value" /> -->
       </el-menu-item>
     </el-submenu>
     <el-menu-item v-else :index="item.path" @click="linkURL(item.path)">
-      <i class="el-icon-document"/>
+      <i :class="item.icon"/>
       <span slot="title">{{ item.title }}</span>
     </el-menu-item>
   </div>
