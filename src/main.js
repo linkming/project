@@ -3,16 +3,17 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import element from 'element-ui'
+import VForm from './components/form/index'
+import VFormItem from './components/form/form-item'
+import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-
-import { codemirror } from 'vue-codemirror'
-import 'codemirror/lib/codemirror.css'
-
+import api from '@/api'
+Vue.use(Element)
+// import axios from 'axios'
+Vue.component('v-form', VForm)
+Vue.component('v-form-item', VFormItem)
 Vue.config.productionTip = false
-Vue.use(element)
-Vue.use(codemirror)
-
+Vue.prototype.$api = api
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

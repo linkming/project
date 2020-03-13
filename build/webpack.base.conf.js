@@ -42,6 +42,10 @@ module.exports = {
     rules: [
       ...(config.dev.useEslint ? [createLintingRule()] : []),
       {
+        test: /\.scss$/,
+        loader: ['style', 'css', 'sass']
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: vueLoaderConfig
@@ -74,11 +78,7 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
-      },
-      {  
-        test: /\.scss$/,
-        loaders: ["style", "css", "sass"]
-      },
+      }
     ]
   },
   node: {

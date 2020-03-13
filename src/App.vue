@@ -1,37 +1,23 @@
 <template>
   <div id="app">
-    <headers class="header"></headers>
-    <div class="bottom">
-      <slider></slider>
-      <mains></mains>
-    </div>
+    <!-- <img src="./assets/logo.png"> -->
+    <router-view/>
   </div>
 </template>
 
 <script>
-import headers from './views/headers'
-import slider from './views/slider'
-import mains from './views/mains'
 export default {
-  components: { headers, slider, mains }
+  name: 'App'
 }
 </script>
 
-<style lang="scss">
+<style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  .header{
-    height: 50px;
-    width:100%;
-    background:#eee;
-  }
-  .bottom{
-    display: flex;
-    width:100%;
-  }
+  margin-top: 60px;
 }
 </style>

@@ -1,6 +1,6 @@
-# demos
+# study-d3
 
-> first blood
+> A Vue.js project
 
 ## Build Setup
 
