@@ -9,6 +9,7 @@
 </template>
 
 <script>
+// import core from './../utils/core'
 export default {
   name: '',
   data () {
@@ -31,10 +32,10 @@ export default {
 </script>
 
 <style lang="" scoped>
-  /* .container{
+  .container{
     border: 1px solid #ccc;
     height: 100%;
     padding-left: 24px;
-  } */
+  }
 
 </style>
