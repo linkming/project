@@ -13,10 +13,12 @@ export default {
   data () {
     return {
       list: [1, 2, 3, 4]
+      // f2: require('@antv/f2')
     }
   },
   mounted () {
-    this.getbaidu()
+    // console.log(require('@antv/f2'))
+    // this.getbaidu()
   },
   methods: {
     fn () {

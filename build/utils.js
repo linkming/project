@@ -78,7 +78,15 @@ exports.styleLoaders = function (options) {
       use: loader
     })
   }
-
+  // output.push({
+  //   test: /\.vue$/,
+  //   use: [
+  //       {loader: 'vue-loader'}
+  //   ]
+  //   // test: /.vue$/,
+  //   // loader: 'vue-loader'
+  // })
+  // console.log(output)
   return output
 }
 
