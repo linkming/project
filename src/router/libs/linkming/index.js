@@ -1,7 +1,7 @@
 export default {
-  path: '{{  path }}',
-  name: '{{ properCase name }}',
-  component: resolve => require(['@/views/{{name}}'], resolve),
+  path: '/linkming',
+  name: 'Linkming',
+  component: resolve => require(['@/views/linkming'], resolve),
   hidden: true,
   meta: {
     id: 'pageerror:havenopermission:404',

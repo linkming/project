@@ -3,14 +3,16 @@
     <!-- <img src="./assets/logo.png"> -->
     <!-- <router-view/> -->
     <slider-bar></slider-bar>
+    <main-content></main-content>
   </div>
 </template>
 
 <script>
 import sliderBar from '@/layout/slideBar'
+import mainContent from '@/layout/main-content'
 export default {
   name: 'App',
-  components: {sliderBar}
+  components: {sliderBar, mainContent}
 }
 </script>
 
@@ -21,7 +23,8 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  display: flex;
   color: #2c3e50;
-  margin-top: 60px;
+  height: 100vh;
 }
 </style>

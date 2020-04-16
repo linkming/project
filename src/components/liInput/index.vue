@@ -1,12 +1,15 @@
 <template>
-  <div class="slider-bar">
-   我是侧边栏
+  <div class="li-input">
+   <input type="text" v-model="value">
   </div>
 </template>
 
 <script>
 export default {
-  name: 'slider-bar',
+  name: 'liInput',
+  props: {
+
+  },
   data () {
     return {
 
@@ -22,8 +25,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-  .slider-bar{
-    width: 10%;
-    padding: 12px;
+  .li-input{
+
   }
 </style>

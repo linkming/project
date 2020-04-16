@@ -1,12 +1,15 @@
 <template>
-  <div class="slider-bar">
-   我是侧边栏
+  <div class="main-content">
+   <nav-bar></nav-bar>
+   <router-view />
   </div>
 </template>
 
 <script>
+import navBar from './nav-bar'
 export default {
-  name: 'slider-bar',
+  name: 'main-content',
+  components: {navBar},
   data () {
     return {
 
@@ -22,8 +25,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-  .slider-bar{
-    width: 10%;
-    padding: 12px;
+  .main-content{
+    flex: 1;
   }
 </style>

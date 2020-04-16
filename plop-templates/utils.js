@@ -7,28 +7,25 @@ exports.notEmpty = name => {
     }
   }
 }
-exports.splitRouterName = () => {
-  return routerName => {
-    if (routerName.indexOf('-') < 0) {
-      return {
-        name: routerName,
-        path: './' + routerName,
-        component: routerName
-      }
-    } else {
-      const routesArr = routerName.split('-')
-      var component = ''
-      // eslint-disable-next-line no-unused-vars
-      var routes = ''
-      routesArr.forEach(item => {
-        routes += item
-        component += (item + '/')
-      })
-      return {
-        name: routerName,
-        path: './' + routerName,
-        component
-      }
+exports.splitRouterName = routerName => {
+  if (routerName.indexOf('-') < 0) {
+    return {
+      name: routerName,
+      path: './' + routerName + 'js',
+      component: routerName
+    }
+  } else {
+    const routesArr = routerName.split('-')
+    var component = ''
+    var name = ''
+    routesArr.forEach(item => {
+      name += item
+      component += (item + '/')
+    })
+    return {
+      name: routerName,
+      path: './' + routerName + 'js',
+      component
     }
   }
 }

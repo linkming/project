@@ -1,12 +1,12 @@
 <template>
-  <div class="main">
-   1
+  <div class="nav-bar">
+   导航栏
   </div>
 </template>
 
 <script>
 export default {
-  name: 'main',
+  name: 'navBar',
   data () {
     return {
 
@@ -22,7 +22,8 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-  .main{
-    padding: 12px
+  .nav-bar{
+    background-color: burlywood;
+    height: 60px;
   }
 </style>

@@ -1,3 +1,4 @@
+const { splitRouterName } = require('../utils.js')
 module.exports = {
   description: '路由生成器',
   prompts: [{
@@ -28,55 +29,26 @@ module.exports = {
   }
   ],
   actions: data => {
-    let splitRouterName = routerName => {
-      if (routerName.indexOf('-') < 0) {
-        return {
-          name: routerName,
-          path: './' + routerName + 'js',
-          component: routerName
-        }
-      } else {
-        const routesArr = routerName.split('-')
-        var component = ''
-        var name = ''
-        routesArr.forEach(item => {
-          name += item
-          component += (item + '/')
-        })
-        return {
-          name: routerName,
-          path: './' + routerName + 'js',
-          component
-        }
-      }
-    }
-    // console.log(splitRouterName(data.routerPath), data)
     const {rootPath, routerPath, routerLevel} = data
     const actions = [
       {
         type: 'add',
         path: `src/router/${rootPath}/${splitRouterName(routerPath).component}/index.js`,
         templateFile: './plop-templates/router/index.hbs',
-        // template: '{{dashCase name}}',
         data: {
           name: routerLevel === '一级路由' ? routerPath : routerPath.split('-')[0] + routerPath.split('-')[1],
-          component: () => import('@/views/' + splitRouterName(routerPath).component + '/404'),
           path: '/' + splitRouterName(routerPath).component
-        //   script: data.blocks.includes('script'),
-        //   style: data.blocks.includes('style')
         }
       },
       {
         type: 'add',
-        path: `src/view/${rootPath}/${splitRouterName(routerPath).component}/index.vue`,
-        templateFile: './plop-templates/router/view.hbs',
+        path: `src/view/${splitRouterName(routerPath).component}/index.vue`,
+        templateFile: './plop-templates/view/index.hbs',
         template: '{{dashCase name}}',
         data: {
           name: routerLevel === '一级路由' ? routerPath : routerPath.split('-')[0] + routerPath.split('-')[1],
           component: () => import('@/views/' + splitRouterName(routerPath).component + '/404'),
           path: '/' + splitRouterName(routerPath).component
-        //   script: data.blocks.includes('script'),
-        //   style: data.blocks.includes('style')
         }
       }
     ]

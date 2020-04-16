@@ -1,10 +1,6 @@
 <template>
   <div class="container">
-   <v-form :modes="form">
-    <v-form-item :label="'用户名: '" :width="'160px'" prop="username">
-      <el-input v-model="form.username"></el-input>
-    </v-form-item>
-   </v-form>
+  三十三岁时
   </div>
 </template>
 
@@ -31,10 +27,9 @@ export default {
 }
 </script>
 
-<style lang="" scoped>
+<style lang="scss" scoped>
   .container{
     border: 1px solid #ccc;
-    height: 100%;
     padding-left: 24px;
   }
 

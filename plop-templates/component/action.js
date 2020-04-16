@@ -1,26 +1,26 @@
 module.exports = {
-  description: '视图层',
+  description: '组件层',
   prompts: [
     {
       type: 'input',
-      name: 'routerPath',
+      name: 'name',
       // 这里要加正则校验
       // validate: function (value) {
-      //   if ((/^[a-z][A-Z]+$/).test(value)) { return true }
+      //   if ((/^[a-z|-]+$/).test(value)) { return true }
       //   return '路由路径必须由小写字母或-组成'
       // },
-      message: '路由的路径全部由小写字母或-命名'
+      message: '请填入组件的名称'
     }
   ],
   actions: data => {
-    const {routerPath} = data
+    const {name} = data
     const actions = [
       {
         type: 'add',
-        path: `src/view/${routerPath}/index.vue`,
-        templateFile: './plop-templates/view/index.hbs',
+        path: `src/components/${name}/index.vue`,
+        templateFile: './plop-templates/component/index.hbs',
         data: {
-          name: routerPath
+          name
         }
       }
     ]
