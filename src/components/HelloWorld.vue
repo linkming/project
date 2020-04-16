@@ -1,11 +1,10 @@
 <template>
   <div class="container">
-  三十三岁时
+   <router-view style="router-views" />
   </div>
 </template>
 
 <script>
-// import core from './../utils/core'
 export default {
   name: '',
   data () {
@@ -29,6 +28,7 @@ export default {
 
 <style lang="scss" scoped>
   .container{
+    flex: 1;
     border: 1px solid #ccc;
     padding-left: 24px;
   }

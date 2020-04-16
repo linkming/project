@@ -1,19 +1,18 @@
 <template>
   <div class="home">
-   我是home页面
-   <button @click="fn1"> 点击过快</button>
-
+  <li-input placeholder="请输入名称" @input="writing" v-model="namesUser"></li-input>
   </div>
 </template>
 
 <script>
+import liInput from '@/components/liInput'
 import {Debounce} from '@/utils/apis.js'
 export default {
   name: 'home',
+  components: {liInput},
   data () {
     return {
-      list: [1, 2, 3, 4]
-      // f2: require('@antv/f2')
+      namesUser: ''
     }
   },
   mounted () {
@@ -21,6 +20,13 @@ export default {
     // this.getbaidu()
   },
   methods: {
+    input (data) {
+      console.log(this.namesUser)
+      // this.namesUser = data
+    },
+    writing (event) {
+      console.log('event', event)
+    },
     fn () {
       console.log('running')
     },

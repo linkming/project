@@ -42,7 +42,7 @@ module.exports = {
       },
       {
         type: 'add',
-        path: `src/view/${splitRouterName(routerPath).component}/index.vue`,
+        path: `src/views/${splitRouterName(routerPath).component}/index.vue`,
         templateFile: './plop-templates/view/index.hbs',
         template: '{{dashCase name}}',
         data: {
