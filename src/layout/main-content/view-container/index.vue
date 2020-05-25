@@ -1,6 +1,5 @@
 <template>
   <div class="view-container">
-    路由容器
    <router-view />
   </div>
 </template>

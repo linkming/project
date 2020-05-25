@@ -1,79 +1,129 @@
 <template>
-  <div class="home">
-  <li-input placeholder="请输入名称" @input="writing" v-model="namesUser"></li-input>
+  <div class="demo">
+
   </div>
 </template>
 
 <script>
-import liInput from '@/components/liInput'
-import {Debounce} from '@/utils/apis.js'
+import * as d3 from 'd3'
+import data from './json'
 export default {
-  name: 'home',
-  components: {liInput},
+  name: 'demo',
   data () {
     return {
-      namesUser: ''
+
     }
   },
   mounted () {
-    // console.log(require('@antv/f2'))
-    // this.getbaidu()
+    this.$api.getGraph().then((res) => {
+      if (res.code === 0) {
+        console.log(res)
+      } else {
+        this.$notify.error({
+          title: '错误',
+          message: res.msg || '获取失败'
+        })
+      }
+    }).catch(err => { console.log(err) })
+    var width = 1000
+    var height = 500
+    function chart () {
+      // const links = data.links.map(d => Object.create(d))
+      // const nodes = data.nodes.map(d => Object.create(d))
+      const links = data.links
+      const nodes = data.nodes
+
+      const simulation = d3.forceSimulation(nodes)
+        .force('link', d3.forceLink(links).id(d => d.id))
+        .force('charge', d3.forceManyBody())
+        .force('center', d3.forceCenter(width / 2, height / 2))
+
+      // const svg = d3.create('svg')
+      //   .attr('viewBox', [0, 0, width, height])
+      const svg = d3.select('.demo').append('svg')
+        .attr('viewBox', [0, 0, width, height])
+      const link = svg.append('g')
+        .attr('stroke', '#999')
+        .attr('stroke-opacity', 0.6)
+        .selectAll('line')
+        .data(links)
+        .join('line')
+        .attr('stroke-width', d => Math.sqrt(d.value))
+      const node = svg.append('g')
+        .attr('stroke', '#fff')
+        .attr('stroke-width', 1.5)
+        .selectAll('circle')
+        .data(nodes)
+        .join('circle')
+        .attr('r', 15)
+        .attr('fill', color())
+        .call(drag(simulation))
+        .on('click', (d, l) => {
+          console.log(d, l)
+          console.log('d, l')
+        })
+
+      node.append('title')
+        .text(d => d.id)
+
+      simulation.on('tick', () => {
+        link
+          .attr('x1', d => d.source.x)
+          .attr('y1', d => d.source.y)
+          .attr('x2', d => d.target.x)
+          .attr('y2', d => d.target.y)
+
+        node
+          .attr('cx', d => d.x)
+          .attr('cy', d => d.y)
+      })
+
+      // invalidation.then(() => simulation.stop())
+      // console.log(svg.node)
+      // debugger
+      return svg.node()
+    }
+    function color () {
+      const scale = d3.scaleOrdinal(d3.schemeCategory10)
+      return d => scale(d.group)
+    }
+    var drag = simulation => {
+      function dragstarted (d) {
+        console.log(d)
+        if (!d3.event.active) simulation.alphaTarget(0.3).restart()
+        d.fx = d.x
+        d.fy = d.y
+      }
+
+      function dragged (d) {
+        d.fx = d3.event.x
+        d.fy = d3.event.y
+      }
+
+      function dragended (d) {
+        if (!d3.event.active) simulation.alphaTarget(0)
+        d.fx = null
+        d.fy = null
+      }
+
+      return d3.drag()
+        .on('start', dragstarted)
+        .on('drag', dragged)
+        .on('end', dragended)
+    }
+    chart()
   },
   methods: {
-    input (data) {
-      console.log(this.namesUser)
-      // this.namesUser = data
-    },
-    writing (event) {
-      console.log('event', event)
-    },
-    fn () {
-      console.log('running')
-    },
-    getbaidu () {
-      this.$api.getbaidu().then(res => {
-        console.log(res)
-      })
-    },
-    fn1 () {
-      this.list[1] = 80
-      Debounce(function () { console.log('runing') }, 3000)
-      console.log(this.list)
-    },
-    debounce: function (func, wait) {
-      let timeout
-      return function () {
-        let context = this
-        let args = arguments
 
-        if (timeout) clearTimeout(timeout)
-
-        let callNow = !timeout
-        timeout = setTimeout(() => {
-          timeout = null
-        }, wait)
-
-        if (callNow) func.apply(context, args)
-      }
-    },
-    throttle: function (handler, wait) {
-      var lastTime = 0
-
-      return function () {
-        var nowTime = new Date().getTime()
-
-        if (nowTime - lastTime > wait) {
-          handler.apply(this, arguments)
-          lastTime = nowTime
-        }
-      }
-    }
   }
 }
 </script>
 
-<style>
-  .home{
-    padding: 12px;
+<style lang='scss' scoped>
+  .demo{
+    /deep/ svg{
+      width:1001px;
+      height: 660px
+    }
   }
 </style>

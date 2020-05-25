@@ -1,19 +1,20 @@
 <template>
-  <div class="system-config">
-   1system-config
+  <div class="d3">
+   1sssssssssssss
   </div>
 </template>
 
 <script>
+import * as d3 from 'd3'
 export default {
-  name: 'system-config',
+  name: 'd3',
   data () {
     return {
 
     }
   },
   mounted () {
-
+    console.log(d3.version)
   },
   methods: {
 
@@ -22,7 +23,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-  .system-config{
-    background-color:#fff
+  .d3{
+    background-color: #eee;
   }
 </style>

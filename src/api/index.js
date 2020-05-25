@@ -9,5 +9,12 @@ export default {
       method: 'post',
       data: {'data': '我 是 还不少'}
     })
+  },
+  getGraph () {
+    return axios({
+      url: '/ai/graph-query/query',
+      method: 'post',
+      data: {cypher: 'MATCH (n) RETURN n LIMIT 25;'}
+    })
   }
 }

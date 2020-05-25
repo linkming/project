@@ -4,13 +4,12 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 var arr = []
-const libRoutes = require.context('./libs', true, /\/((?!\/)[\s\S])+\/index\.js$/)
-console.log(libRoutes.resolve(libRoutes.keys()))
+// const libRoutes = require.context('./libs', true, /\/((?!\/)[\s\S])+\/index\.js$/)
+// console.log(libRoutes.resolve(libRoutes.keys()))
 const menuRoutes = require.context('./menu', true, /\/((?!\/)[\s\S])+\/index\.js$/)
 menuRoutes.keys().forEach(item => {
   arr = arr.concat(menuRoutes(item).default)
 })
-console.log(arr)
 // const routerLib = new RouterBuild({
 //   r: require.context('./libs', true, /\/((?!\/)[\s\S])+\/route\.js$/),
 //   hasLayout: false
@@ -27,6 +26,11 @@ export default new Router({
       redirect: '/',
       name: 'home',
       component: resolve => require(['@/views/home'], resolve)
+    },
+    {
+      path: '/system',
+      name: 'system',
+      component: resolve => require(['@/views/system'], resolve)
     }
   ]
 })
